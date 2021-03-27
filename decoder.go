@@ -57,7 +57,7 @@ loop:
 			return nil, errors.New("error decoding uevent: unknown format")
 		}
 
-		k, v := kv[:i], kv[i+1:len(kv)-1] // last char is zero (0)
+		k, v := kv[:i], kv[i+1:]
 		ev.Vars[k] = v
 
 		switch k {
@@ -82,5 +82,6 @@ func (d *Decoder) next() (string, error) {
 	if err != nil {
 		return "", err
 	}
+	s = s[:len(s)-1] // ReadString last character is 0x00 delimiter
 	return s, nil
 }
