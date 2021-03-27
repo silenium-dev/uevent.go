@@ -8,10 +8,6 @@ import (
 	"syscall"
 )
 
-// NETLINK_KOBJECT_UEVENT is the socket protocol for kernel uevent,
-// see /usr/include/linux/netlink.h
-const NETLINK_KOBJECT_UEVENT = 15
-
 // Reader implements reading uevents from an AF_NETLINK socket.
 type Reader struct {
 	fd     int // the file descriptor of the socket.
@@ -54,7 +50,7 @@ func NewReader() (io.ReadCloser, error) {
 	fd, err := syscall.Socket(
 		syscall.AF_NETLINK,
 		syscall.SOCK_RAW,
-		NETLINK_KOBJECT_UEVENT,
+		syscall.NETLINK_KOBJECT_UEVENT,
 	)
 	if err != nil {
 		return nil, err
