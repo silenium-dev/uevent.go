@@ -1,8 +1,10 @@
+//go:build linux
 // +build linux
 
 package uevent
 
 import (
+	"errors"
 	"io"
 	"os"
 	"syscall"
@@ -29,6 +31,9 @@ func (r *Reader) Read(p []byte) (n int, err error) {
 	// if it's actually closed or not and return an io.EOF.
 	if r.closed {
 		return 0, io.EOF
+	}
+	if n < 0 && errors.Is(err, syscall.EBADF) {
+		return 0, io.ErrUnexpectedEOF
 	}
 	return
 }
