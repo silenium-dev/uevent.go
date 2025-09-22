@@ -32,7 +32,7 @@ func (r *Reader) Read(p []byte) (n int, err error) {
 		return 0, io.EOF
 	}
 	if n < 0 {
-		return 0, io.ErrUnexpectedEOF
+		n = 0
 	}
 	return
 }
