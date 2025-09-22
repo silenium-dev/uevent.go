@@ -1,10 +1,3 @@
-# Golang uevent bindings
-
-This golang library implements uevent bindings for reading and decoding Linux kernel udev events.
-
-## Usage
-
-```go
 package main
 
 import (
@@ -30,8 +23,3 @@ func main() {
 		fmt.Println(evt)
 	}
 }
-```
-
-## Prerequisites
-
-Linux
